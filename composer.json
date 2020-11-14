@@ -1,0 +1,17 @@
+{
+    "name": "bbtrash/homecredit-api",
+    "type": "library",
+    "description": "HomeCredit API wrapper",
+    "keywords": ["homecredit","api","api"],
+    "homepage": "https://github.com/bbtrash/homecredit-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomáš Veverka",
+            "email": "veverka648@gmail.com",
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    }
+}
