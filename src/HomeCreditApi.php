@@ -1,5 +1,5 @@
 <?php
-namespace bbtrash\HomeCreditApi;
+namespace HomeCreditApi;
 
 /**
  * Description of HomeCreditApi
