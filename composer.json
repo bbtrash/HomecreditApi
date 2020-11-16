@@ -1,7 +1,7 @@
 {
     "name": "bbtrash/homecredit-api",
     "type": "library",
-    "description": "HomeCredit API wrapper",
+    "description": "Simple HomeCredit API wrapper",
     "keywords": ["homecredit","api"],
     "homepage": "https://github.com/bbtrash/homecredit-api",
     "license": "MIT",
@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.4.0"
     },
     "autoload": {
         "psr-4": {

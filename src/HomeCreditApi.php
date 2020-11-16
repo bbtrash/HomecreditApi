@@ -3,6 +3,8 @@ namespace HomeCreditApi;
 
 /**
  * Description of HomeCreditApi
+ * 
+ * https://csoneclicknew.docs.apiary.io/
  *
  * @author bbtrash
  */
@@ -20,10 +22,16 @@ class HomeCreditApi {
     static $currency = 'CZK';
     
     var $apiURL;
-    
+    var $accessToken;
+
+
+    private static $error;
+
     
     public function __construct() {
-        
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
     }
     
     public function setProduction($user,$pass){
@@ -33,9 +41,24 @@ class HomeCreditApi {
         self::$password = $pass;
         
     }
+
+    /**
+     * Store token in session
+     * @param $token
+     */
+    public function setAccessToken($token){
+        $_SESSION['homeCreditAccessToken'] = $token;
+    }
     
+
     public function setTrain(){
         $this->apiURL = self::$trainURL;
+    }
+
+    public function getError(){
+
+
+
     }
     
     
@@ -45,7 +68,10 @@ class HomeCreditApi {
             'username' => self::$user,
             'password' => self::$password
         ];
-        return $this->sendCurl($url, $post)['accessToken'];
+
+        $accessToken = $this->sendCurl($url, $post)['accessToken'];
+
+        return $accessToken;
     }
     
     
@@ -94,6 +120,76 @@ class HomeCreditApi {
 
         //echo $responze["gatewayRedirectUrl"] ;
         echo "<a href='".$return["gatewayRedirectUrl"]."'>Odkaz</a>";
+    }
+    
+    
+    public function testData()
+    {
+        $finalData = [
+            'customer' => [
+              'firstName' => 'Jaroslav',
+              'lastName' => 'Trener',
+              'email' => 'Jar.Trener954@sezznamm.cz',
+              'phone' => '+420765787435',
+              'addresses' => [
+                0 => [
+                  'city' => 'Brno',
+                  'streetAddress' => 'Holandská',
+                  'streetNumber' => '510',
+                  'zip' => '60500',
+                  'addressType' => 'PERMANENT',
+                ],
+              ],
+            ],
+            'order' => [
+              'number' => '57834704124',
+              'variableSymbols' => [
+                0 => '989595',
+              ],
+              'totalPrice' => [
+                'amount' => 200000,
+                'currency' => 'CZK',
+              ],
+              'items' => [
+                0 => [
+                  'code' => '5202',
+                  'ean' => '9999545',
+                  'name' => 'iPhone 6s 32GB SpaceGray',
+                  'quantity' => 1,
+                  'totalPrice' => [
+                    'amount' => 200000,
+                    'currency' => 'CZK',
+                  ],
+                  'image' => [
+                    'filename' => 'iphone6s.jpg',
+                    'url' => 'https://i.cdn.nrholding.net/32523771/2000/2000/iphone6s.jpg',
+                  ],
+                ],
+              ],
+            ],
+            'type' => 'INSTALLMENT',
+            'settingsInstallment' => [
+                  'preferredMonths' => 0,
+                  'preferredInstallment' => [
+                    'amount' => 26800,
+                    'currency' => 'CZK',
+                  ],
+                  'preferredDownPayment' => [
+                    'amount' => 0,
+                    'currency' => 'CZK',
+                  ],
+                  'productCode' => 'COCONL08',
+                  'productSetCode' => 'COCHCONL',
+            ],
+            'agreementPersonalDataProcessing' => true,
+            'merchantUrls' => [
+              'approvedRedirect' => 'http://localhost9',
+              'rejectedRedirect' => 'http://localhost',
+              'notificationEndpoint' => 'http://uzjepekne.cz',
+            ],
+          ];
+        
+        return $finalData;
     }
     
 }
